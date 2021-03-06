@@ -74,7 +74,7 @@ public class AuxEx2 {
         for (i = 0; i < notasTurma.length; i++){
             for (j = 0; j < notasTurma.length; j++){
                 if (notasTurma[i][j] > r)
-                    r = notas [i][j];
+                    r = notasTurma [i][j];
             }
         }
         return r;
@@ -91,7 +91,7 @@ public class AuxEx2 {
         for (i = 0; i < notasTurma.length; i++) {
             for (j = 0; j < notasTurma.length; j++) {
                 if (notasTurma[i][j] < r)
-                    r = notas[i][j];
+                    r = notasTurma[i][j];
             }
         }
         return r;
