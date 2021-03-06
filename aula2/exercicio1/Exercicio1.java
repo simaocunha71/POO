@@ -1,43 +1,51 @@
 import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Exercicio1 {
+
+    /**
+     * Função interativa que retorna um array com valores introduzidos pelo utilizador
+     * @return Array
+     */
+    public static int[] devolveArray() {
+        Scanner inputReader = new Scanner(System.in);
+
+        System.out.println("Qual é o tamanho do array?");
+        int arraySize = inputReader.nextInt();
+
+        int[] array = new int[arraySize];
+
+        System.out.println("Escreva o array desejado.");
+        for (int i = 0; i < arraySize; i++) {
+            array[i] = inputReader.nextInt();
+        }
+
+        return array;
+    }
+
     public static void e1a() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Quantos números vai ler?");
-        int ler = input.nextInt();
-        int[] array = new int [ler];
-        System.out.println("Escreve "+ ler + " números: ");
-        for (int i = 0; i<ler;i++)
-            array[i] = input.nextInt();
-        int min = f.minimo(array);
+        int[] array = devolveArray();
+        int min = AuxEx1.valorMinimo(array);
         System.out.println("O minimo é: " +min);
     }
     public static void e1b() {
-        Scanner input = new Scanner(System.in);
+        int[] array = devolveArray();
+
         System.out.print("Indices inicial e final: ");
+        Scanner input = new Scanner(System.in);
         int indI = input.nextInt();
         int indF = input.nextInt();
-        System.out.println("Sub-array: " + Auxiliares.entreIndices(array, indI, indF));
+        int[] res = AuxEx1.entreIndices(array, indI, indF);
+        System.out.println("Sub-array: " + Arrays.toString(res)); // importante colocar o método "Arrays.toString()" para poder ver a impressão
 
     }
 
     public static void e1c () {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Tamanho dos arrays: ");
+        int[] array1 = devolveArray();
+        int[] array2 = devolveArray();  
 
-        int ler1 = input.nextInt();
-        int[] array1 = new int[ler1];
-        System.out.println("Insere " + ler1 + " numeros para o array 1: ");
-        for (int i = 0; i < le1r; i++)
-            array1[i] = input.nextInt();
-
-        int ler2 = input.nextInt();
-        int[] array2 = new int[ler1];
-        System.out.println("Insere " + ler2 + " numeros para o array 2: ");
-        for (int j = 0; j < ler2; j++)
-            array2[j] = input.nextInt();    
-
-        int[] res = comuns(array1, array2);
+        int[] res = AuxEx1.comuns(array1, array2);
 
         System.out.println("A interseção dos dois arrays é " + Arrays.toString(res));
     }

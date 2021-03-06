@@ -1,7 +1,5 @@
-/**
- * Auxiliares
- */
-public class Auxiliares {
+
+public class AuxEx1 {
 
     /**
      * Calcula o valor minimo de um array
@@ -26,41 +24,39 @@ public class Auxiliares {
      * @return Array entre indices "inicio" e "fim"
      */
     public static int[] entreIndices(int[] a, int inicio, int fim) {
-        if (inicio>fim || fim>a.length || fim < 0 || inicio < 0){
-            return null; //devemos colocar "null" em vez de um array vazio
-        }
-        int tamanho = fim-inicio+1;
-        int[] res = new int[tamanho];
-        System.arraycopy(a, inicio, res, 0, tamanho);
-        return res;
-    }
+        int[] newArray = new int[fim - inicio + 1];
 
+        for (int i = 0; i < newArray.length; i++)
+            newArray[i] = a[i + inicio];
+
+        return newArray;
+    }
+    
     /**
      * Determina o array com os elementos comuns de 2 arrays
      * @param a1 array 1
      * @param a2 array 2
      * @return array com os elementos comuns de a1 e a2
      */
-    public int[] comuns (int[]a1, int[]a2){
-        int[]res = new int[a1.length];
-        int ind = 0;
+    public static int[] comuns (int[]a1, int[]a2){
+        int[] tempArray = new int[Math.max(a1.length, a2.length)]; //comprimento máximo dos arrays a1 e a2
 
-        for(int elem1: a1){
-            boolean encontr = false;
-            for (int i = 0; i<a2.length && !encontr; i++){
-                if (elem1 == a2[i]){
-                    boolean encontrRes = false;
-                    for(int j = 0; i<ind && !encontrRes; j++)
-                        encontrRes = res[j] == elem1;
-                    if (!encontrRes){
-                        res[ind++] = elem1;
-                    }
-                    encontr = true;
+        int i = 0;
+        for (int element1 : a1) { //element1 percorre a1
+            for (int element2 : a2) {//element2 percorre a2
+                if (element1 == element2) {
+                    tempArray[i++] = element1;// coloca num array temporario
+                    break;
                 }
             }
         }
-        int[] resultado = new int[ind];
-        System.arraycopy (res,0, resultado, 0, ind);
-        return resultado;
+
+        int[] newArray = new int[i];
+        for (int j = 0; j < i; j++)
+            newArray[j] = tempArray[j];
+
+        return newArray;
     }
+
 }
+
