@@ -121,14 +121,7 @@ public class Euromilhoes {
 
 
     public static void main(String[] args){
-        int test = Integer.parseInt(args[0]);
-        switch (test) {
-            case 1:
                 executarPrograma();
-                break;
-            default:
-                break;
-        }
     }
 }
 
