@@ -179,9 +179,19 @@ public class Telemovel {
     }
 
     public void tlmtoString() {
-        System.out.println(("Telemóvel: "));
-        System.out.println(("   Marca: "));
-        
+        System.out.println("Telemóvel: ");
+        System.out.println("   Marca: "+brand);
+        System.out.println("   Resolução: "+x+" X "+y);
+        System.out.println("   Tamanho disponivel para mensagens: "+armazenarMensagens);
+        System.out.println("   Tamanho disponivel para fotografias: "+armazenarFotos);
+        System.out.println("   Tamanho disponivel para aplicaçoes: "+armazenarApps);
+        System.out.println("   Tamanho disponivel para aplicaçoes e fotografias: "+armazenarFtAppTotal);
+        System.out.println("   Tamanho disponivel no Disco: "+espacoTotalBytes);
+        System.out.println("   Número de fotografias: "+espacoTotalBytes);
+        System.out.println("   Número de aplicações: "+espacoTotalBytes);
+        System.out.println("   Aplicações instaladas: "+printApps(appsInst)); // fazer esta função
+        System.out.println("   Caixa de mensagens: "+printMensagens(mensagens)); // fazer esta função
+       
     }
 
 }
