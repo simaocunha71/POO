@@ -265,20 +265,20 @@ public class Telemovel {
         Telemovel t1 = new Telemovel("Xiaomi", "Pocophone F1", 1920, 1080, 2000, 5000, 5000, 20, 2, 2, apps, msg);
         System.out.println(t1.toString());
 
-        System.out.println("-------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------");
         System.out.println(("2º telemovel:"));
         Telemovel t2 = new Telemovel(t1);
         System.out.println(t2.toString());
         t1.instalaApp("Instagram", 20);
-        System.out.println("-------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------");
         System.out.println("Instalar uma aplicaçao...");
         System.out.println(t1.toString());
-        System.out.println("-------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------");
         System.out.println("Introduzir uma mensagem...");
         t1.recebeMsg("Tenho de evacuar, uma vez que tenho uma consulta às 5h");
-        System.out.println("-------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------");
         System.out.println(t1.toString());
-        System.out.println("-------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------");
         System.out.println("Maior mensagem no sistema: "+ t1.maiorMsg());
         System.out.println("-------------------------------------------------------------");
         System.out.println("Remover uma aplicaçao...");
