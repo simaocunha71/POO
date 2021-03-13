@@ -78,101 +78,59 @@ public class Telemovel {
         return marca;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
     public String getModelo() {
         return modelo;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
+
 
     public int getX() {
         return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
     }
 
     public int getY() {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
 
     public float getArmazenarMensagens() {
         return armazenarMensagens;
     }
 
-    public void setArmazenarMensagens(float armazenarMensagens) {
-        this.armazenarMensagens = armazenarMensagens;
-    }
 
     public float getArmazenarFotos() {
         return armazenarFotos;
     }
 
-    public void setArmazenarFotos(float armazenarFotos) {
-        this.armazenarFotos = armazenarFotos;
-    }
 
     public float getArmazenarApps() {
         return armazenarApps;
     }
 
-    public void setArmazenarApps(float armazenarApps) {
-        this.armazenarApps = armazenarApps;
-    }
 
     public float getEspacoTotalBytes() {
         return espacoTotalBytes;
     }
 
-    public void setEspacoTotalBytes(float espacoTotalBytes) {
-        this.espacoTotalBytes = espacoTotalBytes;
-    }
 
     public int getNumFotos() {
         return numFotos;
     }
 
-    public void setNumFotos(int numFotos) {
-        this.numFotos = numFotos;
-    }
 
     public int getNumApps() {
         return numApps;
     }
 
-    public void setNumApps(int numApps) {
-        this.numApps = numApps;
-    }
 
     public ArrayList <String> getAppsInst() {
         return this.appsInst;
-    }
-
-    public void setAppsInst(ArrayList<String> appsInst) {
-        this.appsInst = new ArrayList<String>(this.numApps);
-        for (String app : appsInst)
-            this.appsInst.add(app);
     }
 
     public ArrayList <String> getMensagens() {
         return this.mensagens;
     }
 
-    public void setMensagens(ArrayList<String> mensagens) {
-        this.mensagens = new ArrayList<String>(mensagens.size());
-        for (String msg : mensagens)
-            this.mensagens.add(msg);
-    }
 
     public Telemovel clone(Telemovel tlm) {
         return (new Telemovel(this));
