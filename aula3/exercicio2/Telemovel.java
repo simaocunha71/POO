@@ -32,7 +32,7 @@ public class Telemovel {
     }
 
     public Telemovel(String marca, String modelo, int x, int y, float armazenarMensagens, float armazenarFotos, float armazenarApps, float espacoTotalBytes, 
-                     float numFotos, int numApps, ArrayList<String> appsInst, ArrayList<String> mensagens) {
+                     int numFotos, int numApps, ArrayList<String> appsInst, ArrayList<String> mensagens) {
         this.marca = marca;
         this.modelo = modelo;
         this.x = x;
@@ -63,7 +63,7 @@ public class Telemovel {
         this.armazenarApps = tlm.getArmazenarApps();
         this.espacoTotalBytes = tlm.getEspacoTotalBytes();
         this.numFotos = tlm.getNumFotos();
-        this.numApps = tlm.getnumApps();
+        this.numApps = tlm.getNumApps();
 
         this.appsInst = new ArrayList<String>(numApps);
         for (String app : tlm.appsInst) 
@@ -122,7 +122,7 @@ public class Telemovel {
         this.armazenarFotos = armazenarFotos;
     }
 
-    public long getArmazenarApps() {
+    public float getArmazenarApps() {
         return armazenarApps;
     }
 
@@ -130,7 +130,7 @@ public class Telemovel {
         this.armazenarApps = armazenarApps;
     }
 
-    public long getEspacoTotalBytes() {
+    public float getEspacoTotalBytes() {
         return espacoTotalBytes;
     }
 
@@ -138,11 +138,11 @@ public class Telemovel {
         this.espacoTotalBytes = espacoTotalBytes;
     }
 
-    public long getNumFotos() {
+    public int getNumFotos() {
         return numFotos;
     }
 
-    public void setNumFotos(float numFotos) {
+    public void setNumFotos(int numFotos) {
         this.numFotos = numFotos;
     }
 
@@ -154,7 +154,7 @@ public class Telemovel {
         this.numApps = numApps;
     }
 
-    public ArrayList <String> get() {
+    public ArrayList <String> getAppsInst() {
         return this.appsInst;
     }
 
@@ -174,24 +174,118 @@ public class Telemovel {
             this.mensagens.add(msg);
     }
 
-    public Phone clone(Telemovel tlm) {
+    public Telemovel clone(Telemovel tlm) {
         return (new Telemovel(this));
     }
 
-    public void tlmtoString() {
-        System.out.println("Telemóvel: ");
-        System.out.println("   Marca: "+brand);
-        System.out.println("   Resolução: "+x+" X "+y);
-        System.out.println("   Tamanho disponivel para mensagens: "+armazenarMensagens);
-        System.out.println("   Tamanho disponivel para fotografias: "+armazenarFotos);
-        System.out.println("   Tamanho disponivel para aplicaçoes: "+armazenarApps);
-        System.out.println("   Tamanho disponivel para aplicaçoes e fotografias: "+armazenarFtAppTotal);
-        System.out.println("   Tamanho disponivel no Disco: "+espacoTotalBytes);
-        System.out.println("   Número de fotografias: "+espacoTotalBytes);
-        System.out.println("   Número de aplicações: "+espacoTotalBytes);
-        System.out.println("   Aplicações instaladas: "+printApps(appsInst)); // fazer esta função
-        System.out.println("   Caixa de mensagens: "+printMensagens(mensagens)); // fazer esta função
-       
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Telemovel = {");
+        sb.append("Marca = ").append(marca);
+        sb.append(", Modelo = ").append(modelo);
+        sb.append(", Resoluçao = ").append(x);
+        sb.append("X").append(y);
+        sb.append(", Tamanho disponivel para mensagens = ").append(armazenarMensagens);
+        sb.append(", Tamanho total para mensagens e fotografias = ").append(armazenarFtAppTotal);
+        sb.append(", Tamanho disponivel para fotografias = ").append(armazenarFotos);
+        sb.append(", Tamanho disponivel para aplicaçoes = ").append(armazenarApps);
+        sb.append(", Capacidade do disco usada = ").append(espacoTotalBytes);
+        sb.append(", Numero de fotografias = ").append(numFotos);
+        sb.append(", Numero de aplicaçoes = ").append(numApps);
+        sb.append(", Nome das aplicaçoes = ").append(appsInst);
+        sb.append(", Descriçao das mensagens = ").append(mensagens);
+        sb.append("}");
+        return sb.toString();
     }
 
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || this.getClass() != o.getClass())
+            return false;
+        Telemovel tlm = (Telemovel) o;
+        return (this.getMarca().equals(tlm.getMarca()) 
+                && this.getArmazenarApps() == tlm.getArmazenarApps()
+                && this.getModelo() == tlm.getModelo()
+                && this.getArmazenarMensagens() == tlm.getArmazenarMensagens() 
+                && this.getX() == tlm.getX()
+                && this.getY() == tlm.getY()
+                && this.getAppsInst().toString().equals(this.getAppsInst().toString())
+                && this.getMensagens().toString().equals(tlm.getMensagens().toString()) 
+                && this.getNumApps() == tlm.getNumApps()
+                && this.getNumFotos() == tlm.getNumFotos() 
+                && this.getArmazenarFotos() == tlm.getArmazenarFotos() 
+                && this.getEspacoTotalBytes() == tlm.getEspacoTotalBytes());
+    }
+
+    public boolean existeEspaco(int numeroBytes){
+        return (numeroBytes + this.espacoTotalBytes < this.armazenarFtAppTotal + this.armazenarMensagens);
+    }
+
+    public void instalaApp(String nome, int tamanho){
+        this.numApps++;
+        this.armazenarApps += tamanho;
+        this.appsInst.add(nome);
+    }
+
+    public void recebeMsg(String msg){
+        this.armazenarMensagens += msg.length();
+        this.mensagens.add(msg);
+    }
+
+    public double tamMedioApps(){
+        return ((double) this.armazenarApps / this.numApps);
+    }
+
+    public String maiorMsg(){
+        int maiorM = Integer.MIN_VALUE; // comprimento da menor mensagem possivel
+        String res = "";
+        for (String msg : this.mensagens)
+            if (msg.length() > maiorM) {
+                res = msg;
+                maiorM = msg.length();
+            }
+        return res;
+    }
+
+    public void removeApp(String nome, int tamanho){
+        this.armazenarApps -= tamanho;
+        this.numApps--;
+        this.appsInst.remove(nome);
+    }
+
+    public static void main(String[] args) {
+
+        ArrayList<String> apps = new ArrayList<String>();
+        apps.add("NewStarSoccer");
+        apps.add("MadFut");
+        ArrayList<String> msg = new ArrayList<String>();
+        msg.add("Sou lindo");
+        msg.add("Sou gostoso!");
+        System.out.println(("1º telemovel:"));
+        Telemovel t1 = new Telemovel("Xiaomi", "Pocophone F1", 1920, 1080, 2000, 5000, 5000, 20, 2, 2, apps, msg);
+        System.out.println(t1.toString());
+
+        System.out.println("-------------------------------------------------------------");
+        System.out.println(("2º telemovel:"));
+        Telemovel t2 = new Telemovel(t1);
+        System.out.println(t2.toString());
+        t1.instalaApp("Instagram", 20);
+        System.out.println("-------------------------------------------------------------");
+        System.out.println("Instalar uma aplicaçao...");
+        System.out.println(t1.toString());
+        System.out.println("-------------------------------------------------------------");
+        System.out.println("Introduzir uma mensagem...");
+        t1.recebeMsg("Tenho de evacuar, uma vez que tenho uma consulta às 5h");
+        System.out.println("-------------------------------------------------------------");
+        System.out.println(t1.toString());
+        System.out.println("-------------------------------------------------------------");
+        System.out.println("Maior mensagem no sistema: "+ t1.maiorMsg());
+        System.out.println("-------------------------------------------------------------");
+        System.out.println("Remover uma aplicaçao...");
+        t1.removeApp("Instagram", 20);
+        System.out.println(t1.toString());
+        System.out.println("-------------------------------------------------------------");
+        System.out.println("Tamanho medio das aplicaçoes instaladas: " + t1.tamMedioApps()); 
+    }
 }
+
