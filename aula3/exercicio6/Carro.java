@@ -1,5 +1,5 @@
 public class Carro {
-    private string estado;
+    private String estado;
     private String marca;
     private String modelo;
     private int ano;
@@ -17,10 +17,10 @@ public class Carro {
         this.ano = ano;
         this.consumoKm = consumoKm;
         this.capacidadeReg = capacidadeReg;
-        this.kmsDesdeInicio = 0.0;
-        this.mediaConsumoDesdeInicio = 0.0;
-        this.kmsUltimoPercurso = 0.0;
-        this.mediaConsumoUltimoPercurso = 0.0;
+        this.kmsDesdeInicio = (double) 0;
+        this.mediaConsumoDesdeInicio = (long) 0;
+        this.kmsUltimoPercurso = (double) 0;
+        this.mediaConsumoUltimoPercurso = (long) 0;
     }
 
     public Carro (String marca, String modelo, int ano, long consumoKm, 
@@ -82,11 +82,11 @@ public class Carro {
                 && this.mediaConsumoUltimoPercurso == c.getMediaConsumoUltimoPercurso() && this.capacidadeReg == c.getCapacidadeReg());
     }
 
-    public string getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(string estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -166,7 +166,7 @@ public class Carro {
      * Liga o carro
      */
     public void ligaCarro(){
-        this.estado = setEstado("Ligado");
+        this.estado = "Ligado";
         resetUltimaViagem();
     }
 
@@ -174,15 +174,15 @@ public class Carro {
      * Desliga o carro
      */
     public void desligaCarro(){
-        this.estado = setEstado("Desligado");
+        this.estado = "Desligado";
     }
 
     /**
      * Reset aos dados da ultima viagem efetuada
      */
     public void resetUltimaViagem(){
-        this.kmsUltimoPercurso = setKmsDesdeInicio(0.0);
-        this.mediaConsumoUltimoPercurso = setMediaConsumoUltimoPercurso(0);
+        this.kmsUltimoPercurso = 0;
+        this.mediaConsumoUltimoPercurso = 0;
     }
 
     /**
@@ -195,8 +195,8 @@ public class Carro {
             double km = metros / 1000;
             double consumo = km * ((velocidade * this.consumoKm) / 100);
 
-            this.lastKm += km;
-            this.totalKm += km;
+            this.kmsUltimoPercurso += km;
+            this.kmsDesdeInicio += km;
             this.mediaConsumoDesdeInicio    += consumo / km;
             this.mediaConsumoUltimoPercurso += consumo / km;
         }
@@ -212,10 +212,44 @@ public class Carro {
             double reg = this.capacidadeReg * km;
             
             this.kmsUltimoPercurso += km;
-            this.mediaConsumoUltimoPercurso = (reg / km);
+            this.mediaConsumoUltimoPercurso = (long) (reg / km);
 
             this.kmsDesdeInicio += km;
             this.mediaConsumoDesdeInicio -= (reg / km);
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Carro 1:");
+        Carro c1 = new Carro("Lamborghini", "Murcielago", 2011, 4, 1);
+        System.out.println(c1.toString());
+        c1.ligaCarro();
+        c1.avancaCarro(1000000, 200);
+        System.out.println(c1.toString());
+        System.out.println("");
+
+        Carro c2 = new Carro(c1);
+        System.out.println("Carro 2:");
+        System.out.println(c2);
+        System.out.println("");
+
+        System.out.print("O carro 1 é igual ao carro 2? ");
+        System.out.println(c2.equals(c1));
+        c2.travaCarro(2000);
+        System.out.println("");
+        
+        System.out.println(c2);
+        System.out.println("");
+        
+        System.out.print("O carro 1 é igual ao carro 2? ");
+        System.out.println(c2.equals(c1));
+        c1.resetUltimaViagem();
+        System.out.println("");
+        
+        System.out.println(c1);
+        c1.avancaCarro(1000, 3);
+        System.out.println("");
+        
+        System.out.println(c1);
     }
 }
