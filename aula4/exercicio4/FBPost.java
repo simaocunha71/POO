@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 public class FBPost {
     private int id;
@@ -6,7 +7,7 @@ public class FBPost {
     private LocalDateTime data;
     private String conteudoPost;
     private int likes;
-    private ArrayList <comentario> comentarios;
+    private ArrayList <String> comentarios;
 
     public FBPost(int id, String nomeUtilizadorCriacaoPost,
                   LocalDateTime data, String conteudoPost,int likes,
@@ -54,8 +55,8 @@ public class FBPost {
 
     public String toString() {
         StringBuilder sb = new StringBuilder("FBPost: ").append("Id da publicação: ").append(id).append(" | Utilizador: ")
-                .append(user).append(" | Data da publicação: ").append(date).append(" | Conteudo do post: ").append(content)
-                .append(" | Likes: ").append(likes).append(" | Comentários: ").append(coms.toString()).append("\n");
+                .append(nomeUtilizadorCriacaoPost).append(" | Data da publicação: ").append(data).append(" | Conteudo do post: ").append(conteudoPost)
+                .append(" | Likes: ").append(likes).append(" | Comentários: ").append(comentarios.toString()).append("\n");
         return sb.toString();
     }
 
@@ -103,11 +104,11 @@ public class FBPost {
         this.likes = likes;
     }
 
-    public ArrayList<comentario> getComentarios() {
+    public ArrayList<String> getComentarios() {
         return comentarios;
     }
 
-    public void setComentarios(ArrayList<comentario> comentarios) {
+    public void setComentarios(ArrayList<String> comentarios) {
         this.comentarios = comentarios;
     }
 

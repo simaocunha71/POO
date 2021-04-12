@@ -1,23 +1,19 @@
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FBFeed {
     private List<FBPost> posts;
 
     public FBFeed(List<FBPost> posts) {
-        this.setPosts(ps);
+        this.setPosts(posts);
     }
 
     public FBFeed(FBFeed f) {
         this.setPosts(f.getPosts());
-    }
-
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        else if (o == null || this.getClass() != o.getClass())
-            return false;
-        FBFeed f = (FBFeed) o;
-        return (f.getPosts().equals(o.getPosts()));
     }
 
     public String toString() {
@@ -37,13 +33,22 @@ public class FBFeed {
         this.posts = posts;
     }
 
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || this.getClass() != o.getClass())
+            return false;
+        FBFeed f = (FBFeed) o;
+        return this.posts.equals(f.posts);
+    }
+
     /**
      * Devolve o numero de posts de um utilizador
      * @param user Nome do utilizador
      * @return Numero de posts de um utilizador
      */
     public int nrPosts(String user){
-        return (int) this.posts.stream().filter(ps->post.getNomeUtilizadorCriacaoPost().equals(user)).count();
+        return (int) this.posts.stream().filter(post->post.getNomeUtilizadorCriacaoPost().equals(user)).count();
     }
 
     /**
@@ -52,8 +57,7 @@ public class FBFeed {
      * @return Comentarios do utilizador
      */
     public List<FBPost> postsOf(String user){
-        return (List <FBPost>) this.posts.stream().filter(post -> post.getNomeUtilizadorCriacaoPost().equals(user)).count()
-                .collect(Collectors.toList());
+        return (List <FBPost>) this.posts.stream().filter(post -> post.getNomeUtilizadorCriacaoPost().equals(user)).collect(Collectors.toList());
     }
 
     /**
@@ -67,7 +71,6 @@ public class FBFeed {
         return (List<FBPost>) this.posts.stream().filter(post -> post.getNomeUtilizadorCriacaoPost().equals(user)
                                                                  && post.getData().compareTo(inicio) > 0
                                                                  && post.getData().compareTo(fim) < 0)
-                            .count()
                             .collect(Collectors.toList());
     }
 
@@ -89,7 +92,7 @@ public class FBFeed {
      * @param comentario Comentario a adicionar
      */
     public void comment(FBPost post, String comentario){
-        this.post.getComentarios().add(comentario);
+        post.getComentarios().add(comentario);
     }
 
     /**
@@ -98,7 +101,7 @@ public class FBFeed {
      * @param comentario comentario a adicionar
      */
     public void comment(int postid, String comentario){
-        this.posts.comment(getPost(postid), comentario);
+        comment(getPost(postid), comentario);
     }
 
     /**
@@ -106,7 +109,7 @@ public class FBFeed {
      * @param post Post aonde se vai incrementar os likes
      */
     public void like(FBPost post){
-        this.posts.setLikes(post.getLikes()+1);
+        post.setLikes(post.getLikes()+1);
     }
 
     /**
@@ -114,8 +117,82 @@ public class FBFeed {
      * @param postid id do post
      */
     public void like(int postid){
-        this.posts.setLikes(getPost(postid).getLikes() + 1);
+        like(getPost(postid));
     }
 
-    
+    /**
+     * Calcula o top5 dos ids com mais comentarios (usando iterador externo)
+     * @return Top5 dos mais comentadores
+     */
+    public List<Integer> top5CommentsIteradorExterno(){
+        ArrayList<FBPost> copy = new ArrayList<>(this.posts);
+        List<Integer> top5 = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            FBPost maisComentado = null;
+            for (FBPost f : copy)
+                if (maisComentado == null || maisComentado.getComentarios().size() < f.getComentarios().size())
+                    maisComentado = f;
+            top5.add(maisComentado.getId()); //adiciona o mais comentado na list top5
+            copy.remove(maisComentado);      //remove o mais comentado do arrayList posts
+        }
+        return top5;
+    }
+
+
+    /**
+     * Calcula o top5 dos ids com mais comentarios (usando iterador interno)
+     * @return Top5 dos mais comentadores
+     */
+    public List<Integer> top5CommentsIteradorInterno() {
+        return this.posts.stream() //percorre uma stream
+                .sorted((Comparator<? super FBPost>) (p1, p2) -> p2.getComentarios().size() - p1.getComentarios().size())
+                .limit(5) //máximo 5 elementos na lista
+                .map(FBPost::getId) // busca o id dos 5 primeiros posts
+                .collect(Collectors.toList()); //mete os ids numa lista
+    }
+
+
+    public static void main(String[] args) {
+        LocalDateTime dateTime = LocalDateTime.of(2020, Month.JANUARY, 31, 16, 32);
+        FBPost post1 = new FBPost(1, "Darwin"           , dateTime                             , "Amanha vou marcar um golo!"              , 10  , new ArrayList<>());
+        FBPost post2 = new FBPost(2, "Seferovic"        , dateTime                             , "Melhor hat-trick da historia do Benfica.", 42  , new ArrayList<>());
+        FBPost post3 = new FBPost(3, "Pizzi"            , dateTime                             , "Ninguem cruza melhor do que eu!"         , 0);
+        FBPost post4 = new FBPost(4, "Grimaldo"         , dateTime                             , "Excelente piada, Pizzi!"                 , 104);
+        FBPost post5 = new FBPost(5, "Taraabt"          , LocalDateTime.of(2021, 3, 12, 10, 41), "Onde é a festa?"                         , 2994, new ArrayList<>());
+        FBPost post6 = new FBPost(6, "Otamendi"         , dateTime                             , "Mas isto não é o Porto?"                 , 26);
+        FBPost post7 = new FBPost(7, "Éverton Cebolinha", dateTime                             , "Que horas são?"                          , 12  , new ArrayList<>());
+
+        ArrayList<FBPost> posts = new ArrayList<>();
+        posts.add(post1);
+        posts.add(post2);
+        posts.add(post3);
+        posts.add(post4);
+        posts.add(post5);
+        posts.add(post6);
+        posts.add(post7);
+
+        FBFeed feed = new FBFeed(posts);
+
+        feed.comment(5, "Tiki taka à la Benfica");
+        feed.comment(7, "Faz o golo alé");
+        feed.comment(3, "Chuta daí pah");
+        feed.comment(3, "Mete o Weigl");
+        feed.comment(3, "Volta Lage, estás perdoado");
+        feed.comment(6, "Não queres partilhar um bocadinho? :p");
+        feed.comment(1, "Boa tarde!");
+        feed.comment(7, "Passa a bola e desmarca-te!");
+
+        feed.like(1);
+
+        System.out.println("Teste função nrPosts: "
+                + (feed.nrPosts("Grimaldo") == 2 && feed.nrPosts("Seferovic") == 1 && feed.nrPosts("Éverton Cebolinha") == 0 ? "Passou"
+                        : "Não passou"));
+        System.out.println("Teste função postsOf: " + feed.postsOf("Pizzi"));
+
+        System.out.println("Teste função postsOf em 2020: "
+                + feed.postsOf("Darwin", LocalDateTime.of(2020, 1, 1, 0, 0), LocalDateTime.now()));
+
+        System.out.println("Teste função top 5 ext: " + feed.top5CommentsIteradorExterno());
+        System.out.println("Teste função top 5 int: " + feed.top5CommentsIteradorInterno());
+    }
 }
