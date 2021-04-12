@@ -6,4 +6,5 @@ AULA1: Introdução ao Java
 AULA2: Arrays em Java
 AULA3: Classes e instâncias
 AULA4: Utilização de ArrayList
+AULA5: Utilização de Map
 ```
