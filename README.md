@@ -7,4 +7,5 @@ AULA2: Arrays em Java
 AULA3: Classes e instâncias
 AULA4: Utilização de ArrayList
 AULA5: Utilização de Map
+AULA6: Exercicio de hierarquia de classes
 ```
