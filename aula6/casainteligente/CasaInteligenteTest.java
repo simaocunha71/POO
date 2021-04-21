@@ -1,52 +1,19 @@
 package casainteligente;
 
-/*********************************************************************************/
-/** DISCLAIMER: Este código foi criado e alterado durante as aulas práticas      */
-/** de POO. Representa uma solução em construção, com base na matéria leccionada */ 
-/** até ao momento da sua elaboração, e resulta da discussão e experimentação    */
-/** durante as aulas. Como tal, não deverá ser visto como uma solução canónica,  */
-/** ou mesmo acabada. É disponibilizado para auxiliar o processo de estudo.      */
-/** Os alunos são encorajados a testar adequadamente o código fornecido e a      */
-/** procurar soluções alternativas, à medida que forem adquirindo mais           */
-/** conhecimentos de POO.                                                        */
-/*********************************************************************************/
-
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 /**
  * The test class CasaInteligenteTest.
  *
- * @author  Simão Cunha
- * @version 2021/04/14
+ * @author  Tiago Silva and Simão Cunha
+ * @version 14/4/2021
  */
+
 public class CasaInteligenteTest {
-    private String morada;
-    private SmartDeviceTest devices;
-    /**
-     * Default constructor for test class CasaInteligenteTest
-     */
-    public CasaInteligenteTest(String morada, SmartDeviceTest sdt){
-        this.morada = morada;
-        this.sdt = sdt;
-        //...
-    }
-
-/* 
-Métodos a implementar:
--> addDevice
--> existsDevice
--> equals
--> setAllOn
--> addRoom
--> hasRoom
--> addToRoom
--> roomHasDevice
-*/
-
-
 
     /**
      * Sets up the test fixture.
@@ -54,8 +21,8 @@ Métodos a implementar:
      * Called before every test case method.
      */
     @BeforeEach
-    public void setUp(){
-
+    public void setUp()
+    {
     }
 
     /**
@@ -75,7 +42,7 @@ Métodos a implementar:
         casaInte1 = new CasaInteligente("Campus de Gualtar");
         assertTrue(casaInte1!=null);
     }
-    
+
     @Test
     public void testAddFindDevice() {
         CasaInteligente casaInte1 = new CasaInteligente("Gualtar");
@@ -102,6 +69,7 @@ Métodos a implementar:
     public void testSetOn() {
         CasaInteligente casaInte1 = new CasaInteligente("Gualtar");
         SmartBulb smartBul1 = new SmartBulb("b1");
+        assertFalse(smartBul1.getOn());
         casaInte1.addDevice(smartBul1);
         smartBul1.setOn(true);
         assertTrue(smartBul1.getOn());

@@ -1,16 +1,5 @@
 package casainteligente;
 
-/*********************************************************************************/
-/** DISCLAIMER: Este código foi criado e alterado durante as aulas práticas      */
-/** de POO. Representa uma solução em construção, com base na matéria leccionada */ 
-/** até ao momento da sua elaboração, e resulta da discussão e experimentação    */
-/** durante as aulas. Como tal, não deverá ser visto como uma solução canónica,  */
-/** ou mesmo acabada. É disponibilizado para auxiliar o processo de estudo.      */
-/** Os alunos são encorajados a testar adequadamente o código fornecido e a      */
-/** procurar soluções alternativas, à medida que forem adquirindo mais           */
-/** conhecimentos de POO.                                                        */
-/*********************************************************************************/
-
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,67 +8,11 @@ import org.junit.jupiter.api.Test;
 /**
  * The test class SmartSpeakerTest.
  *
- * @author  Simão Cunha
- * @version 2021/04/14
+ * @author  Tiago Silva and Simão Cunha
+ * @version 14/4/2021
  */
-public class SmartSpeakerTest extends SmartDeviceTest {
-    private String canal;
-    private int volume;
-    /**
-     * Default constructor for test class SmartSpeakerTest
-     */
-    public SmartSpeakerTest(){
-        super();
-        this.canal = "";
-        this.volume = 0;
-    }
 
-    public SmartSpeakerTest(String id,String c, int vol){
-        super(id);
-        this.canal = c;
-        this.volume = vol;
-    }
-
-    public SmartSpeakerTest(String id){
-        super(id);
-        this.canal = "";
-        this.volume = 0;
-    }
-
-    public SmartSpeakerTest(SmartSpeakerTest sst){
-        super();
-        this.canal = sst.getCanal();
-        this.volume = sst.getVolume();
-    }
-
-    public int getCanal() {
-        return canal;
-    }
-
-    public void setCanal(String c){
-        this.canal = c;
-    }
-
-    public int getVolume() {
-        return volume;
-    }
-
-    public void setVolume(int vol){
-        this.volume = vol;
-    }
-
-    public SmartSpeakerTest clone() {
-        return new SmartSpeakerTest(this);
-    }
-
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("SmartSpeakerTest {\n");
-        sb.append(super.toString());
-        sb.append("Canal a transmitir = ").append(canal).append('\n');
-        sb.append("Volume da SmartSpeakerTest: ").append(volume).append('\n');
-        sb.append("}");
-        return sb.toString();
-    }
+public class SmartSpeakerTest {
 
     /**
      * Sets up the test fixture.
@@ -87,8 +20,8 @@ public class SmartSpeakerTest extends SmartDeviceTest {
      * Called before every test case method.
      */
     @BeforeEach
-    public void setUp(){
-        this.canal = canal; // A CORRIGIR
+    public void setUp()
+    {
     }
 
     /**
@@ -97,8 +30,8 @@ public class SmartSpeakerTest extends SmartDeviceTest {
      * Called after every test case method.
      */
     @AfterEach
-    public void tearDown(){
-        this.volume = volume; // A CORRIGIR        
+    public void tearDown()
+    {
     }
     
     
@@ -130,7 +63,7 @@ public class SmartSpeakerTest extends SmartDeviceTest {
         SmartSpeaker smartSpe1 = new SmartSpeaker("s1", "RUM", 5);
         smartSpe1.volumeUp();
         smartSpe1.volumeUp();
-        assertEquals(2, smartSpe1.getVolume());
+        assertEquals(7, smartSpe1.getVolume());
         for (int i=0; i<25; i++) smartSpe1.volumeUp();
         assertEquals(20, smartSpe1.getVolume());
         for (int i=0; i<30; i++) smartSpe1.volumeDown();
