@@ -9,6 +9,8 @@
 /** conhecimentos de POO.                                                        */
 /*********************************************************************************/ 
 package veiculos;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -18,12 +20,12 @@ import java.util.ArrayList;
  * @version 20210420
  */
 
-public class Veiculo implements Comparable<Veiculo> {
+public abstract class Veiculo implements Comparable<Veiculo>, Serializable {
     private String marca;
     private String modelo;
     private String matricula;
     private int ano;
-    private double velociademedia;
+    private double velocidadeMedia;
     private double precokm;
     private ArrayList<Integer> classificacao;
     private int kms;
@@ -39,7 +41,7 @@ public class Veiculo implements Comparable<Veiculo> {
         this.modelo = "";
         this.matricula = "";
         this.ano = 0;
-        this.velociademedia = 0;
+        this.velocidadeMedia = 0;
         this.precokm = 0;
         this.classificacao = new ArrayList<>();
         this.kms = 0;
@@ -47,14 +49,14 @@ public class Veiculo implements Comparable<Veiculo> {
     }
     
     public Veiculo(String marca, String modelo, String matricula,
-                   int ano, double velociademedia, double precokm,
+                   int ano, double velocidadeMedia, double precokm,
                    ArrayList<Integer> classificacao,
                    int kms, int kmsUltimo) {
         this.marca = marca;
         this.modelo = modelo;
         this.matricula = matricula;
         this.ano = ano;
-        this.velociademedia = velociademedia;
+        this.velocidadeMedia = velocidadeMedia;
         this.precokm = precokm;
         this.classificacao = new ArrayList<>(classificacao);
         this.kms = kms;
@@ -68,7 +70,7 @@ public class Veiculo implements Comparable<Veiculo> {
         this.modelo = v.getModelo();
         this.matricula = v.getMatricula();
         this.ano = v.getAno();
-        this.velociademedia = v.getVelociademedia();
+        this.velocidadeMedia = v.getVelocidadeMedia();
         this.precokm = v.getPrecokm();
         this.classificacao = v.getClassificacao();
         this.kms = v.getKms();
@@ -94,8 +96,8 @@ public class Veiculo implements Comparable<Veiculo> {
         return ano;
     }
 
-    public double getVelociademedia() {
-        return velociademedia;
+    public double getVelocidadeMedia() {
+        return velocidadeMedia;
     }
 
     public double getPrecokm() {
@@ -127,8 +129,8 @@ public class Veiculo implements Comparable<Veiculo> {
         return kmsUltimo;
     }
 
-    public void setVelociademedia(double velociademedia) {
-        this.velociademedia = velociademedia;
+    public void setVelocidadeMedia(double vm) {
+        this.velocidadeMedia = vm;
     }
 
     public void setPrecokm(double precokm) {
@@ -149,7 +151,6 @@ public class Veiculo implements Comparable<Veiculo> {
     
     public double custoRealKM(){
         return this.precokm*1.1;
-        //return this.precokm*(2-1/Math.exp(this.kms));
     }
 
     
@@ -175,7 +176,7 @@ public class Veiculo implements Comparable<Veiculo> {
             this.modelo.equals(v.getModelo())&&
             this.matricula.equals(v.getMatricula()) &&
             this.ano == v.getAno() &&
-            this.velociademedia == v.getVelociademedia() &&
+            this.velocidadeMedia == v.getVelocidadeMedia() &&
             this.precokm == v.getPrecokm() &&
             this.classificacao.equals(v.getClassificacao()) &&
             this.kms == v.getKms() &&
@@ -188,7 +189,7 @@ public class Veiculo implements Comparable<Veiculo> {
         sb.append(", Modelo: ").append(modelo);
         sb.append(", Matricula: ").append(matricula);
         sb.append(", Ano: ").append(ano);
-        sb.append(", Velocidade média: ").append(velociademedia);
+        sb.append(", Velocidade média: ").append(velocidadeMedia);
         sb.append(", Preço/km: ").append(precokm);
         sb.append(", Classificaçao: ").append(classificacao.toString());
         sb.append(", Kms: ").append(kms);

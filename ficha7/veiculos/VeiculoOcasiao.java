@@ -1,60 +1,71 @@
 package veiculos;
 
-public class VeiculoOcasiao extends Veiculo{  
-    private boolean promocao;
-    
-    public VeiculoOcasiao(String marca, String modelo, String matricula,
-                          int ano, double velociademedia, double precokm,
-                          ArrayList<Integer> classificacao,
-                          int kms, int kmsUltimo, boolean promocao){
-        super(marca,modelo,matricula,ano,velociademedia, precokm, classificacao, kms, kmsUltimo);
-        this.setPromocao(promocao);
-    }
+import java.util.ArrayList;
 
-    public VeiculoOcasiao(){
+public class VeiculoOcasiao extends Veiculo {
+    private boolean desconto;
+
+    public VeiculoOcasiao() {
         super();
-        this.promocao = false;
+        this.desconto = false;
     }
 
-    public VeiculoOcasiao(VeiculoOcasiao vo){
+    public VeiculoOcasiao(String marca, String modelo, String matricula, int ano, double velocidadeMedia, double precokm,
+            ArrayList<Integer> classificacao, int kms, int kmsUltimo) {
+        super(marca, modelo, matricula, ano, velocidadeMedia, precokm, classificacao, kms, kmsUltimo);
+        this.desconto = false;
+    }
+
+    public VeiculoOcasiao(String marca, String modelo, String matricula, int ano, double velocidadeMedia, double precokm,
+            ArrayList<Integer> classificacao, int kms, int kmsUltimo, boolean desconto) {
+        super(marca, modelo, matricula, ano, velocidadeMedia, precokm, classificacao, kms, kmsUltimo);
+        this.desconto = desconto;
+    }
+
+    public VeiculoOcasiao(Veiculo v, boolean desconto) {
+        super(v);
+        this.desconto = desconto;
+    }
+
+    public VeiculoOcasiao(Veiculo v) {
+        super(v);
+        this.desconto = false;
+    }
+
+    public VeiculoOcasiao(VeiculoOcasiao vo) {
         super(vo);
-        this.promocao = vo.getPromocao();
+        this.desconto = vo.getDesconto();
     }
 
-    public Boolean getPromocao(){
-        return this.promocao;
-    }
-
-    public void setPromocao(boolean p){
-        this.promocao = p;
-    }
-
-    public double custoRealKM(){
-        double preco = super.custoRealKM();
-        if (this.promocao)
-            preco *= 0.75;
-        return preco;
-    }
-
-    public VeiculoOcasiao clone(){
+    public VeiculoOcasiao clone() {
         return new VeiculoOcasiao(this);
     }
 
-    public boolean equals(Object o){
-        if (o == this) return true;
-        if (o == null || ! o.getClass().equals(this.getClass())) return false;
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        else if (o == null || this.getClass() != o.getClass())
+            return false;
         VeiculoOcasiao vo = (VeiculoOcasiao) o;
-        return  super.equals() && this.promocao == vo.getPromocao();
+        return (super.equals(o) && this.desconto == vo.getDesconto());
+    }
+
+    public boolean getDesconto() {
+        return this.desconto;
     }
 
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append(super.toString());
-        if (this.promocao)
-            sb.append("Promoçao: Sim");
-        else
-            sb.append("Promoção: Não");
-    
+        StringBuilder sb = new StringBuilder("Ocasião:\n").append(super.toString())
+                               .append("\nEm desconto: ").append(desconto).append("\n\n");
         return sb.toString();
+    }
+
+    public void setdesconto(boolean desconto) {
+        this.desconto = desconto;
+    }
+
+    @Override
+    public double getCustoRealKM() {
+        return (desconto ? custoRealKM() * 0.75 : custoRealKM());
     }
 }
