@@ -54,17 +54,17 @@ public class VeiculoOcasiao extends Veiculo {
         return this.desconto;
     }
 
+    public void setDesconto(boolean desconto) {
+        this.desconto = desconto;
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder("Ocasião:\n").append(super.toString())
                                .append("\nEm desconto: ").append(desconto).append("\n\n");
         return sb.toString();
     }
 
-    public void setdesconto(boolean desconto) {
-        this.desconto = desconto;
-    }
 
-    @Override
     public double getCustoRealKM() {
         return (desconto ? custoRealKM() * 0.75 : custoRealKM());
     }

@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class AutocarroInteligente extends Veiculo implements BonificaKms {
     private int lotacao;
     private int ocupacao;
-    private int fatorKm;
+    private int pontosKm;
 
     public AutocarroInteligente() {
         super();
         this.lotacao = 0;
         this.ocupacao = 0;
-        this.fatorKm = 0;
+        this.pontosKm = 0;
     }
 
     public AutocarroInteligente(String marca, String modelo, String matricula, int ano, double velocidadeMedia,
@@ -19,7 +19,7 @@ public class AutocarroInteligente extends Veiculo implements BonificaKms {
         super(marca, modelo, matricula, ano, velocidadeMedia, precokm, classificacao, kms, kmsUltimo);
         this.lotacao = 0;
         this.ocupacao = 0;
-        this.fatorKm = 0;
+        this.pontosKm = 0;
     }
 
     public AutocarroInteligente(String marca, String modelo, String matricula, int ano, double velocidadeMedia,
@@ -27,7 +27,7 @@ public class AutocarroInteligente extends Veiculo implements BonificaKms {
         super(marca, modelo, matricula, ano, velocidadeMedia, precokm, classificacao, kms, kmsUltimo);
         this.lotacao = lotacao;
         this.ocupacao = 0;
-        this.fatorKm = 0;
+        this.pontosKm = 0;
     }
 
     public AutocarroInteligente(String marca, String modelo, String matricula, int ano, double velocidadeMedia,
@@ -35,23 +35,23 @@ public class AutocarroInteligente extends Veiculo implements BonificaKms {
         super(marca, modelo, matricula, ano, velocidadeMedia, precokm, classificacao, kms, kmsUltimo);
         this.lotacao = lotacao;
         this.ocupacao = ocupacao;
-        this.fatorKm = 0;
+        this.pontosKm = 0;
     }
 
     public AutocarroInteligente(String marca, String modelo, String matricula, int ano, double velocidadeMedia,
             double precokm, ArrayList<Integer> classificacao, int kms, int kmsUltimo, int lotacao, int ocupacao,
-            int fatorKm) {
+            int pontosKm) {
         super(marca, modelo, matricula, ano, velocidadeMedia, precokm, classificacao, kms, kmsUltimo);
         this.lotacao = lotacao;
         this.ocupacao = ocupacao;
-        this.fatorKm = fatorKm;
+        this.pontosKm = pontosKm;
     }
 
     public AutocarroInteligente(AutocarroInteligente ai) {
         super(ai);
         this.lotacao = ai.getLotacao();
         this.ocupacao = ai.getOcupacao();
-        this.fatorKm = ai.getFatorKm();
+        this.pontosKm = ai.getPontosKm();
     }
 
     public AutocarroInteligente clone() {
@@ -89,7 +89,6 @@ public class AutocarroInteligente extends Veiculo implements BonificaKms {
         this.ocupacao = ocupacao;
     }
 
-    @Override
     public double getCustoRealKM() {
         double aux = (double) ocupacao / lotacao;
         if (aux > 0.6)
@@ -97,11 +96,11 @@ public class AutocarroInteligente extends Veiculo implements BonificaKms {
         return custoRealKM() * 0.5;
     }
 
-    public void setFatorKm(int fatorKm) {
-        this.fatorKm = fatorKm;
+    public int getPontosKm() {
+        return this.pontosKm;
     }
 
-    public int getFatorKm() {
-        return this.fatorKm;
+    public void setPontosKm(int pontosKm) {
+        this.pontosKm = pontosKm;
     }
 }

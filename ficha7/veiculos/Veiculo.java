@@ -162,9 +162,7 @@ public abstract class Veiculo implements Comparable<Veiculo>, Serializable {
         this.classificacao.add(v);
     }
 
-    public Veiculo clone(){
-        return new Veiculo(this);
-    }
+    public abstract Veiculo clone();
     
     
 

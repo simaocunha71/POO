@@ -4,57 +4,57 @@ import java.util.ArrayList;
 
 public class VeiculoPremium extends Veiculo implements BonificaKms {
     private double taxaDeLuxo;
-    private int fatorKm;
+    private int pontosKm;
 
     public VeiculoPremium() {
         super();
         this.taxaDeLuxo = 0;
-        this.fatorKm = 0;
+        this.pontosKm = 0;
     }
 
     public VeiculoPremium(String marca, String modelo, String matricula, int ano, double velocidadeMedia, double precokm,
             ArrayList<Integer> classificacao, int kms, int kmsUltimo) {
         super(marca, modelo, matricula, ano, velocidadeMedia, precokm, classificacao, kms, kmsUltimo);
         this.taxaDeLuxo = 0;
-        this.fatorKm = 0;
+        this.pontosKm = 0;
     }
 
     public VeiculoPremium(String marca, String modelo, String matricula, int ano, double velocidadeMedia, double precokm,
             ArrayList<Integer> classificacao, int kms, int kmsUltimo, double taxaDeLuxo) {
         super(marca, modelo, matricula, ano, velocidadeMedia, precokm, classificacao, kms, kmsUltimo);
         this.taxaDeLuxo = taxaDeLuxo;
-        this.fatorKm = 0;
+        this.pontosKm = 0;
     }
 
     public VeiculoPremium(Veiculo v, double taxaDeLuxo) {
         super(v);
         this.taxaDeLuxo = taxaDeLuxo;
-        this.fatorKm = 0;
+        this.pontosKm = 0;
     }
 
-    public VeiculoPremium(Veiculo v, double taxaDeLuxo, int fatorKm) {
+    public VeiculoPremium(Veiculo v, double taxaDeLuxo, int pontosKm) {
         super(v);
         this.taxaDeLuxo = taxaDeLuxo;
-        this.fatorKm = fatorKm;
+        this.pontosKm = pontosKm;
     }
 
     public VeiculoPremium(String marca, String modelo, String matricula, int ano, double velocidadeMedia, double precokm,
-            ArrayList<Integer> classificacao, int kms, int kmsUltimo, double taxaDeLuxo, int fatorKm) {
+            ArrayList<Integer> classificacao, int kms, int kmsUltimo, double taxaDeLuxo, int pontosKm) {
         super(marca, modelo, matricula, ano, velocidadeMedia, precokm, classificacao, kms, kmsUltimo);
         this.taxaDeLuxo = taxaDeLuxo;
-        this.fatorKm = fatorKm;
+        this.pontosKm = pontosKm;
     }
 
     public VeiculoPremium(Veiculo v) {
         super(v);
         this.taxaDeLuxo = 0;
-        this.fatorKm = 0;
+        this.pontosKm = 0;
     }
 
     public VeiculoPremium(VeiculoPremium vp) {
         super(vp);
         this.taxaDeLuxo = vp.getTaxaDeLuxo();
-        this.fatorKm = vp.getFatorKm();
+        this.pontosKm = vp.getPontosKm();
     }
 
     public VeiculoPremium clone() {
@@ -84,16 +84,15 @@ public class VeiculoPremium extends Veiculo implements BonificaKms {
         return sb.toString();
     }
 
-    @Override
     public double getCustoRealKM() {
         return custoRealKM() * this.taxaDeLuxo;
     }
 
-    public void setFatorKm(int fatorKm) {
-        this.fatorKm = fatorKm;
+    public void setPontosKm(int pontosKm) {
+        this.pontosKm = pontosKm;
     }
 
-    public int getFatorKm() {
-        return this.fatorKm;
+    public int getPontosKm() {
+        return this.pontosKm;
     }
 }
